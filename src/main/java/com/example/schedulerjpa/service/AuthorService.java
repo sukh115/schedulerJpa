@@ -9,4 +9,6 @@ public interface AuthorService {
     AuthorResponseDto findByauthorId(Long authorId);
 
     UpdateAuthorResponseDto updateAuthor(Long authorId, UpdateAuthorRequestDto dto);
+
+    void deleteAuthor(Long authorId);
 }

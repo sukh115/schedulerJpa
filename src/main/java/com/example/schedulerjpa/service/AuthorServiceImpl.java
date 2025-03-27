@@ -38,4 +38,11 @@ public class AuthorServiceImpl implements AuthorService {
 
         return new UpdateAuthorResponseDto(author.getLoginId(), author.getName(), author.getUpdatedDate());
     }
+
+    @Override
+    public void deleteAuthor(Long authorId) {
+        Author author = authorRepository.findByIdOrElseThrow(authorId);
+
+        authorRepository.delete(author);
+    }
 }
