@@ -6,6 +6,7 @@ import com.example.schedulerjpa.dto.response.AuthorResponseDto;
 import com.example.schedulerjpa.dto.response.CreateAuthorResponseDto;
 import com.example.schedulerjpa.dto.response.UpdateAuthorResponseDto;
 import com.example.schedulerjpa.service.author.AuthorService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @PostMapping("/signup")
-    public ResponseEntity<CreateAuthorResponseDto> signUp(@RequestBody CreateAuthorRequestDto dto) {
+    public ResponseEntity<CreateAuthorResponseDto> signUp(@Valid @RequestBody CreateAuthorRequestDto dto) {
         CreateAuthorResponseDto createAuthorResponseDto = authorService.signUp(dto);
 
         return new ResponseEntity<>(createAuthorResponseDto, HttpStatus.CREATED);
@@ -35,7 +36,7 @@ public class AuthorController {
     @PatchMapping("/{authorId}")
     public ResponseEntity<UpdateAuthorResponseDto> updateAuthor(
             @PathVariable Long authorId,
-            @RequestBody UpdateAuthorRequestDto dto
+            @Valid @RequestBody UpdateAuthorRequestDto dto
     ) {
         UpdateAuthorResponseDto updateAuthorResponseDto = authorService.updateAuthor(authorId, dto);
 

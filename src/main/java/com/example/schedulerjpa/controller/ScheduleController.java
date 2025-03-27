@@ -28,7 +28,7 @@ public class ScheduleController {
 
     @PostMapping
     public ResponseEntity<CreateScheduleResponseDto> createSchedule(
-            @RequestBody CreateScheduleRequestDto dto,
+            @Valid @RequestBody CreateScheduleRequestDto dto,
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession(false);
