@@ -1,8 +1,6 @@
 package com.example.schedulerjpa.controller;
 
-import com.example.schedulerjpa.dto.AuthorResponseDto;
-import com.example.schedulerjpa.dto.CreateAuthorRequestDto;
-import com.example.schedulerjpa.dto.CreateAuthorResponseDto;
+import com.example.schedulerjpa.dto.*;
 import com.example.schedulerjpa.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,5 +26,15 @@ public class AuthorController {
         AuthorResponseDto author = authorService.findByauthorId(authorId);
 
         return new ResponseEntity<>(author, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{authorId}")
+    public ResponseEntity<UpdateAuthorResponseDto> updateAuthor(
+            @PathVariable Long authorId,
+            @RequestBody UpdateAuthorRequestDto dto
+    ) {
+        UpdateAuthorResponseDto updateAuthorResponseDto = authorService.updateAuthor(authorId, dto);
+
+        return new ResponseEntity<>(updateAuthorResponseDto, HttpStatus.OK);
     }
 }
