@@ -1,10 +1,9 @@
 package com.example.schedulerjpa.entity;
 
-import com.example.schedulerjpa.dto.CreateAuthorRequestDto;
+import com.example.schedulerjpa.dto.request.CreateAuthorRequestDto;
 import com.example.schedulerjpa.exception.CustomException;
 import com.example.schedulerjpa.exception.exceptionCode.ExceptionCode;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter

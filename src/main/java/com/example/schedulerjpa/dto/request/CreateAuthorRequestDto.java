@@ -1,9 +1,8 @@
-package com.example.schedulerjpa.dto;
+package com.example.schedulerjpa.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @NoArgsConstructor

@@ -1,7 +1,7 @@
-package com.example.schedulerjpa.service;
+package com.example.schedulerjpa.service.login;
 
-import com.example.schedulerjpa.dto.LoginRequestDto;
-import com.example.schedulerjpa.dto.LoginResponseDto;
+import com.example.schedulerjpa.dto.request.LoginRequestDto;
+import com.example.schedulerjpa.dto.response.LoginResponseDto;
 import com.example.schedulerjpa.entity.Author;
 import com.example.schedulerjpa.repository.AuthorRepository;
 import com.example.schedulerjpa.session.SessionConst;

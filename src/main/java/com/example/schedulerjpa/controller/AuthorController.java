@@ -1,7 +1,11 @@
 package com.example.schedulerjpa.controller;
 
-import com.example.schedulerjpa.dto.*;
-import com.example.schedulerjpa.service.AuthorService;
+import com.example.schedulerjpa.dto.request.CreateAuthorRequestDto;
+import com.example.schedulerjpa.dto.request.UpdateAuthorRequestDto;
+import com.example.schedulerjpa.dto.response.AuthorResponseDto;
+import com.example.schedulerjpa.dto.response.CreateAuthorResponseDto;
+import com.example.schedulerjpa.dto.response.UpdateAuthorResponseDto;
+import com.example.schedulerjpa.service.author.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

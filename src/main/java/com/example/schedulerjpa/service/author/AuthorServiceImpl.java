@@ -1,6 +1,10 @@
-package com.example.schedulerjpa.service;
+package com.example.schedulerjpa.service.author;
 
-import com.example.schedulerjpa.dto.*;
+import com.example.schedulerjpa.dto.request.CreateAuthorRequestDto;
+import com.example.schedulerjpa.dto.request.UpdateAuthorRequestDto;
+import com.example.schedulerjpa.dto.response.AuthorResponseDto;
+import com.example.schedulerjpa.dto.response.CreateAuthorResponseDto;
+import com.example.schedulerjpa.dto.response.UpdateAuthorResponseDto;
 import com.example.schedulerjpa.entity.Author;
 import com.example.schedulerjpa.repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;

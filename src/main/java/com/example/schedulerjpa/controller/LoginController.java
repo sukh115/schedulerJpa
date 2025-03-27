@@ -1,10 +1,10 @@
 package com.example.schedulerjpa.controller;
 
-import com.example.schedulerjpa.dto.LoginRequestDto;
-import com.example.schedulerjpa.dto.LoginResponseDto;
+import com.example.schedulerjpa.dto.request.LoginRequestDto;
+import com.example.schedulerjpa.dto.response.LoginResponseDto;
 import com.example.schedulerjpa.exception.CustomException;
 import com.example.schedulerjpa.exception.exceptionCode.ExceptionCode;
-import com.example.schedulerjpa.service.LoginService;
+import com.example.schedulerjpa.service.login.LoginService;
 import com.example.schedulerjpa.session.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
