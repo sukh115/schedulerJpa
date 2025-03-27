@@ -1,4 +1,7 @@
 package com.example.schedulerjpa.repository;
 
-public class AuthorRepository {
+import com.example.schedulerjpa.entity.Author;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AuthorRepository extends JpaRepository<Author, Long> {
 }

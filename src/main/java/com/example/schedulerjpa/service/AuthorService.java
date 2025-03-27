@@ -1,4 +1,9 @@
 package com.example.schedulerjpa.service;
 
-public class AuthorService {
+import com.example.schedulerjpa.dto.CreateAuthorRequestDto;
+import com.example.schedulerjpa.dto.CreateAuthorResponseDto;
+
+public interface AuthorService {
+
+    public CreateAuthorResponseDto signUp(CreateAuthorRequestDto dto);
 }
