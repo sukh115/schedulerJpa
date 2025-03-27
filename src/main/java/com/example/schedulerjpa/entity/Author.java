@@ -3,6 +3,7 @@ package com.example.schedulerjpa.entity;
 import com.example.schedulerjpa.dto.request.CreateAuthorRequestDto;
 import com.example.schedulerjpa.exception.CustomException;
 import com.example.schedulerjpa.exception.exceptionCode.ExceptionCode;
+import com.example.schedulerjpa.security.PasswordEncoder;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -35,10 +36,10 @@ public class Author extends BaseEntity {
         this.name = name;
     }
 
-    public void isPassword(String password) {
-        if (!this.password.equals(password)) {
-            throw new CustomException(ExceptionCode.PASSWORD_MISMATCH);
-        }
+    public Author(String loginId, String name, String encodedPassword) {
+        this.loginId = loginId;
+        this.name = name;
+        this.password = encodedPassword;
     }
 
     public void isLoginId(String loginId) {
@@ -46,4 +47,18 @@ public class Author extends BaseEntity {
             throw new CustomException(ExceptionCode.LOGINID_MISMATCH);
         }
     }
+
+    /**
+     * 로그인시 비밀번호 검증
+     * @param rawPassword
+     * @param passwordEncoder
+     */
+    public void verifyPassword(String rawPassword, PasswordEncoder passwordEncoder) {
+        if (!passwordEncoder.matches(rawPassword, this.password)) {
+            throw new CustomException(ExceptionCode.PASSWORD_MISMATCH);
+        }
+    }
+
+
+
 }
