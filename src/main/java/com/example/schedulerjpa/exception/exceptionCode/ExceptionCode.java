@@ -13,7 +13,8 @@ public enum ExceptionCode {
     AUTHOR_INVALID_INPUT(400, "AUTHOR_002", "이름과 이메일을 입력해주세요."),
     AUTHOR_UPDATE_FAILED(404, "AUTHOR_003", "작성자 수정에 실패했습니다."),
     AUTHOR_DELETE_FAILED(404, "AUTHOR_004", "작성자 삭제에 실패했습니다."),
-    AUTHOR_EMAIL_DUPLICATED(409, "AUTHOR_005", "이미 사용 중인 이메일입니다."),
+    AUTHOR_LOGIN_ID_DUPLICATED(409, "AUTHOR_005", "이미 사용 중인 로그인 ID입니다.")
+    ,
 
     // Schedule 관련
     SCHEDULE_NOT_FOUND(404, "SCHEDULE_001", "존재하지 않는 일정입니다."),
