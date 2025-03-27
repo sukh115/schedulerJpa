@@ -13,8 +13,7 @@ public enum ExceptionCode {
     AUTHOR_INVALID_INPUT(400, "AUTHOR_002", "이름과 이메일을 입력해주세요."),
     AUTHOR_UPDATE_FAILED(404, "AUTHOR_003", "작성자 수정에 실패했습니다."),
     AUTHOR_DELETE_FAILED(404, "AUTHOR_004", "작성자 삭제에 실패했습니다."),
-    AUTHOR_LOGIN_ID_DUPLICATED(409, "AUTHOR_005", "이미 사용 중인 로그인 ID입니다.")
-    ,
+    AUTHOR_LOGIN_ID_DUPLICATED(409, "AUTHOR_005", "이미 사용 중인 로그인 ID입니다."),
 
     // Schedule 관련
     SCHEDULE_NOT_FOUND(404, "SCHEDULE_001", "존재하지 않는 일정입니다."),
@@ -25,6 +24,9 @@ public enum ExceptionCode {
     // 인증 관련
     UNAUTHORIZED_AUTHOR(403, "AUTH_001", "작성자만 일정을 수정할 수 있습니다."),
     PASSWORD_MISMATCH(401, "AUTH_002", "비밀번호가 일치하지 않습니다."),
+    LOGINID_MISMATCH(401, "AUTH_003", "아이디가 일치하지 않습니다."),
+    AUTHORID_MISMATCH(401, "AUTH_004", "존재하지 않는 로그인 ID입니다."),
+    ALREADY_LOGGEFOUT(401, "AUTH_005", "이미 로그아웃된 상태입니다."),
 
     // 공통
     PAGE_OUT_OF_RANGE(400, "COMMON_001", "요청한 페이지 범위가 유효하지 않습니다.");

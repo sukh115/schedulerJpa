@@ -1,6 +1,8 @@
 package com.example.schedulerjpa.entity;
 
 import com.example.schedulerjpa.dto.CreateAuthorRequestDto;
+import com.example.schedulerjpa.exception.CustomException;
+import com.example.schedulerjpa.exception.exceptionCode.ExceptionCode;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,4 +36,15 @@ public class Author extends BaseEntity {
         this.name = name;
     }
 
+    public void isPassword(String password) {
+        if (!this.password.equals(password)) {
+            throw new CustomException(ExceptionCode.PASSWORD_MISMATCH);
+        }
+    }
+
+    public void isLoginId(String loginId) {
+        if (!this.loginId.equals(loginId)) {
+            throw new CustomException(ExceptionCode.LOGINID_MISMATCH);
+        }
+    }
 }
