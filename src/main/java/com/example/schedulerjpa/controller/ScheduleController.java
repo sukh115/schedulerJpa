@@ -5,6 +5,7 @@ import com.example.schedulerjpa.dto.request.UpdateScheduleRequestDto;
 import com.example.schedulerjpa.dto.response.CreateScheduleResponseDto;
 import com.example.schedulerjpa.dto.response.ScheduleResponseDto;
 import com.example.schedulerjpa.dto.response.UpdateScheduleResponseDto;
+import com.example.schedulerjpa.service.author.AuthorService;
 import com.example.schedulerjpa.service.schedule.ScheduleService;
 import com.example.schedulerjpa.session.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import java.util.List;
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
+    private final AuthorService authorService;
 
     @PostMapping
     public ResponseEntity<CreateScheduleResponseDto> createSchedule(
@@ -60,4 +62,14 @@ public class ScheduleController {
         return new ResponseEntity<>(updateScheduleResponseDto, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{scheduleId}")
+    public ResponseEntity<Void> deleteSchedule(
+            @PathVariable Long scheduleId,
+            HttpServletRequest request
+    ) {
+        Long loginAuthorId = (Long) request.getSession().getAttribute(SessionConst.LOGIN_AUTHOR);
+        scheduleService.deleteSchedule(scheduleId, loginAuthorId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

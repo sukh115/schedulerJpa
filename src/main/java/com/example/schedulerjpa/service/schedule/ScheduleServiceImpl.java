@@ -61,4 +61,14 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         return new UpdateScheduleResponseDto(schedule.getTitle(),schedule.getContents(),schedule.getAuthor().getName(),schedule.getUpdatedDate());
     }
+
+    @Override
+    public void deleteSchedule(Long scheduleId, Long authorId) {
+        Schedule schedule = scheduleRepository.findByIdOrElseThrow(scheduleId);
+
+        schedule.isAuthorId(authorId);
+
+        scheduleRepository.delete(schedule);
+
+    }
 }

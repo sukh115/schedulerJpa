@@ -18,4 +18,6 @@ public interface ScheduleService {
 
     UpdateScheduleResponseDto updateSchedule(Long scheduleId, UpdateScheduleRequestDto dto, Long authorId);
 
+    void deleteSchedule(Long scheduleId, Long authorId);
+
 }
