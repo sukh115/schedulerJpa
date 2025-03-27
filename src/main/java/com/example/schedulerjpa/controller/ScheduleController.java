@@ -1,8 +1,6 @@
 package com.example.schedulerjpa.controller;
 
-import com.example.schedulerjpa.dto.CreateScheduleRequestDto;
-import com.example.schedulerjpa.dto.CreateScheduleResponseDto;
-import com.example.schedulerjpa.dto.ScheduleResponseDto;
+import com.example.schedulerjpa.dto.*;
 import com.example.schedulerjpa.service.ScheduleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +31,16 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleResponseDtos, HttpStatus.OK);
 
     }
+
+    @PatchMapping({"/{scheduleId}"})
+    public ResponseEntity<UpdateScheduleResponseDto> update(
+            @PathVariable Long scheduleId,
+            @Valid @RequestBody UpdateScheduleRequestDto dto
+    ) {
+        return new ResponseEntity<>(scheduleService.updateSchedule(scheduleId,dto),HttpStatus.OK);
+
+    }
+
 
 
 }

@@ -1,18 +1,19 @@
 package com.example.schedulerjpa.service;
 
-import com.example.schedulerjpa.dto.CreateScheduleRequestDto;
-import com.example.schedulerjpa.dto.CreateScheduleResponseDto;
-import com.example.schedulerjpa.dto.ScheduleResponseDto;
+import com.example.schedulerjpa.dto.*;
 import com.example.schedulerjpa.entity.Schedule;
+import com.example.schedulerjpa.exception.CustomException;
+import com.example.schedulerjpa.exception.exceptionCode.ExceptionCode;
 import com.example.schedulerjpa.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ScheduleServiceImpl implements ScheduleService{
+public class ScheduleServiceImpl implements ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
 
@@ -36,5 +37,16 @@ public class ScheduleServiceImpl implements ScheduleService{
                         schedule.getUpdatedDate()
                 ))
                 .toList();
+    }
+
+    @Override
+    @Transactional
+    public UpdateScheduleResponseDto updateSchedule(Long schduleId, UpdateScheduleRequestDto dto) {
+
+        Schedule schedule = scheduleRepository.findById(schduleId).orElseThrow(() -> new CustomException(ExceptionCode.SCHEDULE_NOT_FOUND));
+
+        schedule.update(dto.getTitle(), dto.getContents());
+
+        return new UpdateScheduleResponseDto(schedule.getAuthorName(), schedule.getTitle(), schedule.getContents(), schedule.getUpdatedDate());
     }
 }
