@@ -32,7 +32,7 @@ public class ScheduleController {
 
     }
 
-    @PatchMapping({"/{scheduleId}"})
+    @PatchMapping("/{scheduleId}")
     public ResponseEntity<UpdateScheduleResponseDto> update(
             @PathVariable Long scheduleId,
             @Valid @RequestBody UpdateScheduleRequestDto dto
@@ -40,6 +40,8 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.updateSchedule(scheduleId,dto),HttpStatus.OK);
 
     }
+
+    @DeleteMapping()
 
 
 
