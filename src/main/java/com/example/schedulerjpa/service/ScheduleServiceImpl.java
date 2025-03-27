@@ -41,12 +41,19 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     @Transactional
-    public UpdateScheduleResponseDto updateSchedule(Long schduleId, UpdateScheduleRequestDto dto) {
+    public UpdateScheduleResponseDto updateSchedule(Long scheduleId, UpdateScheduleRequestDto dto) {
 
-        Schedule schedule = scheduleRepository.findById(schduleId).orElseThrow(() -> new CustomException(ExceptionCode.SCHEDULE_NOT_FOUND));
+        Schedule findSchedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new CustomException(ExceptionCode.SCHEDULE_NOT_FOUND));
 
-        schedule.update(dto.getTitle(), dto.getContents());
+        findSchedule.update(dto.getTitle(), dto.getContents());
 
-        return new UpdateScheduleResponseDto(schedule.getAuthorName(), schedule.getTitle(), schedule.getContents(), schedule.getUpdatedDate());
+        return new UpdateScheduleResponseDto(findSchedule.getAuthorName(), findSchedule.getTitle(), findSchedule.getContents(), findSchedule.getUpdatedDate());
+    }
+
+    @Override
+    public void deleteSchedule(Long scheduleId) {
+        Schedule findSchedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new CustomException(ExceptionCode.SCHEDULE_NOT_FOUND));
+
+        scheduleRepository.delete(findSchedule);
     }
 }

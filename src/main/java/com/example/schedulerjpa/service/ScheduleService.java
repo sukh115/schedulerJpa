@@ -9,5 +9,7 @@ public interface ScheduleService {
 
     List<ScheduleResponseDto> findAllSchedule();
 
-    UpdateScheduleResponseDto updateSchedule(Long schduleId, UpdateScheduleRequestDto dto);
+    UpdateScheduleResponseDto updateSchedule(Long scheduleId, UpdateScheduleRequestDto dto);
+
+    void deleteSchedule(Long scheduleId);
 }
