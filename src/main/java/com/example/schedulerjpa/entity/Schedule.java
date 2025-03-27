@@ -1,5 +1,7 @@
 package com.example.schedulerjpa.entity;
 
+import com.example.schedulerjpa.exception.CustomException;
+import com.example.schedulerjpa.exception.exceptionCode.ExceptionCode;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,5 +31,16 @@ public class Schedule extends BaseEntity {
         this.author = author;
         this.title = title;
         this.contents = contents;
+    }
+
+    public void update(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+    }
+
+    public void isAuthorId(Long authorId) {
+        if (!this.author.getAuthorId().equals(authorId)) {
+            throw new CustomException(ExceptionCode.AUTHORID_MISMATCH);
+        }
     }
 }
