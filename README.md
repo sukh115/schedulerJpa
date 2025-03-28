@@ -1,7 +1,11 @@
 # 🍃 schedulerJPA
 
+---
+
 ## 📌 ERD설계
 ![ERD.png](ERD.png)
+
+---
 
 ## 📄 일정 관리 API 명세서
 
@@ -83,6 +87,69 @@
 - **Postman**
 ---
 
+## 🗂️ 계층 구조 (MVC + Service + Repository)
+
+    controller/
+    ├── AuthorController.java
+    ├── LoginController.java
+    ├── ScheduleController.java
+    └── CommentController.java
+
+    entity/
+    ├── Author.java
+    ├── Login.java
+    ├── BaseEntity.java
+    └── Commentr.java
+    
+    service/
+    ├── author/
+    │   └── AuthorService.java
+    │   └── AuthorServiceImpl.java
+    ├── login/
+    │   └── LoginService.java
+    │   └── LoginServiceImpl.java
+    ├── schedule/
+    │   └── ScheduleService.java
+    │   └── ScheduleServiceImpl.java
+    └── comment/
+        └── ScheduleService.java
+        └── ScheduleServiceImpl.java
+    
+    dto/
+    ├── request/
+    │   └── ...
+    └── response/
+        └── ...
+    
+    repository/
+    ├── AuthorRepository.java
+    ├── ScheduleRepository.java
+    └── CommentRepository.java
+    
+    exception/
+    ├── CustomException.java
+    ├── ExceiptionResponse.java
+    ├── GlobalExceptionHandler.java
+    ├── ValidationExceptionResponse.java
+    └── exceptionCode/
+        └─── ExceptionCode.java
+    
+    session/
+    └── SessionConst.java
+
+    config/
+    └── FilterConfig.java
+
+    fiter/
+    └── AuthFilter.java
+
+    securitiy/
+    └── PasswordEncorder.java
+    └── SimplePasswordEncorder.java
+
+
+
+---
 ## 🔢레벨 별 branch 구현
 ### ✅ 필수
 #### 1️⃣ Lv 1. 일정 CRUD
