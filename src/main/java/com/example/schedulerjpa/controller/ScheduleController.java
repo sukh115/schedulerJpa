@@ -24,7 +24,6 @@ import java.util.List;
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
-    private final AuthorService authorService;
 
     @PostMapping
     public ResponseEntity<CreateScheduleResponseDto> createSchedule(
