@@ -11,7 +11,7 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     Optional<Author> findByLoginId(String loginId);
 
     default Author findByLoginIdOrElseThrow(String loginId){
-        return findByLoginId(loginId).orElseThrow(() -> new CustomException(ExceptionCode.AUTHORID_MISMATCH));
+        return findByLoginId(loginId).orElseThrow(() -> new CustomException(ExceptionCode.AUTHOR_ID_MISMATCH));
     };
 
     default Author findByIdOrElseThrow(Long authorId) {

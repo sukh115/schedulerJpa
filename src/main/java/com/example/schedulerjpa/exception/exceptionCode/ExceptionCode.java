@@ -20,12 +20,13 @@ public enum ExceptionCode {
     SCHEDULE_INVALID_INPUT(400, "SCHEDULE_002", "제목과 내용을 입력해주세요."),
     SCHEDULE_UPDATE_FAILED(404, "SCHEDULE_003", "일정 수정 실패"),
     SCHEDULE_DELETE_FAILED(404, "SCHEDULE_004", "일정 삭제 실패"),
+    SCHEDULE_ID_MISMATCH(401, "SCHEDULE_005", "존재하지 않는 일정 입니다."),
 
     // 인증 관련
     UNAUTHORIZED_AUTHOR(403, "AUTH_001", "작성자만 일정을 수정할 수 있습니다."),
     PASSWORD_MISMATCH(401, "AUTH_002", "비밀번호가 일치하지 않습니다."),
-    LOGINID_MISMATCH(401, "AUTH_003", "아이디가 일치하지 않습니다."),
-    AUTHORID_MISMATCH(401, "AUTH_004", "존재하지 않는 로그인 ID입니다."),
+    LOGIN_ID_MISMATCH(401, "AUTH_003", "아이디가 일치하지 않습니다."),
+    AUTHOR_ID_MISMATCH(401, "AUTH_004", "존재하지 않는 로그인 ID입니다."),
     ALREADY_LOGGEFOUT(401, "AUTH_005", "이미 로그아웃된 상태입니다."),
 
     // 댓글 관련

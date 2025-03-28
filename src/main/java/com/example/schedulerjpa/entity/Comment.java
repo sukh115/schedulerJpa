@@ -1,8 +1,8 @@
 package com.example.schedulerjpa.entity;
 
+import com.example.schedulerjpa.exception.CustomException;
+import com.example.schedulerjpa.exception.exceptionCode.ExceptionCode;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter
@@ -29,11 +29,25 @@ public class Comment extends BaseEntity {
 
     }
 
-    public Comment(Author author, Schedule schedule,String content) {
+    public Comment(Author author, Schedule schedule, String content) {
         this.schedule = schedule;
         this.author = author;
         this.content = content;
     }
 
+    public void update(String content) {
+        this.content = content;
+    }
 
+    public void isAuthorId(Long authorId) {
+        if (!this.author.getAuthorId().equals(authorId)) {
+            throw new CustomException(ExceptionCode.AUTHOR_ID_MISMATCH);
+        }
+    }
+
+    public void isScheduleId(Long scheduleId) {
+        if (!this.schedule.getScheduleId().equals(scheduleId)) {
+            throw new CustomException(ExceptionCode.SCHEDULE_ID_MISMATCH);
+        }
+    }
 }

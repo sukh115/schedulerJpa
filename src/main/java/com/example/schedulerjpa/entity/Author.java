@@ -44,7 +44,7 @@ public class Author extends BaseEntity {
 
     public void isLoginId(String loginId) {
         if (!this.loginId.equals(loginId)) {
-            throw new CustomException(ExceptionCode.LOGINID_MISMATCH);
+            throw new CustomException(ExceptionCode.LOGIN_ID_MISMATCH);
         }
     }
 

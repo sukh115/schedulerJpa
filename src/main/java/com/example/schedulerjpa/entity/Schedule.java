@@ -40,7 +40,7 @@ public class Schedule extends BaseEntity {
 
     public void isAuthorId(Long authorId) {
         if (!this.author.getAuthorId().equals(authorId)) {
-            throw new CustomException(ExceptionCode.AUTHORID_MISMATCH);
+            throw new CustomException(ExceptionCode.AUTHOR_ID_MISMATCH);
         }
     }
 }

@@ -1,8 +1,10 @@
 package com.example.schedulerjpa.controller;
 
 import com.example.schedulerjpa.dto.request.CreateCommentRequestDto;
+import com.example.schedulerjpa.dto.request.UpdateCommentRequestDto;
 import com.example.schedulerjpa.dto.response.CommentResponseDto;
 import com.example.schedulerjpa.dto.response.CreateCommentResponseDto;
+import com.example.schedulerjpa.dto.response.UpdateCommentReponseDto;
 import com.example.schedulerjpa.service.comment.CommentService;
 import com.example.schedulerjpa.session.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,5 +39,18 @@ public class CommentController {
     ) {
         List<CommentResponseDto> response = commentService.findBySchedule_ScheduleId(scheduleId);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PatchMapping("/schedules/{scheduleId}/{commentId}")
+    public ResponseEntity<UpdateCommentReponseDto> updateComment(
+            @PathVariable Long scheduleId,
+            @PathVariable Long commentId,
+            @Valid @RequestBody UpdateCommentRequestDto dto,
+            HttpServletRequest request
+    ) {
+        Long authorId = (Long) request.getSession().getAttribute(SessionConst.LOGIN_AUTHOR);
+        UpdateCommentReponseDto updateCommentReponseDto = commentService.updateComment(dto, commentId, authorId, scheduleId);
+
+        return new ResponseEntity<>(updateCommentReponseDto, HttpStatus.OK);
     }
 }

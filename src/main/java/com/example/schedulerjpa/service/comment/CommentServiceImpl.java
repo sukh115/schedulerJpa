@@ -1,8 +1,10 @@
 package com.example.schedulerjpa.service.comment;
 
 import com.example.schedulerjpa.dto.request.CreateCommentRequestDto;
+import com.example.schedulerjpa.dto.request.UpdateCommentRequestDto;
 import com.example.schedulerjpa.dto.response.CommentResponseDto;
 import com.example.schedulerjpa.dto.response.CreateCommentResponseDto;
+import com.example.schedulerjpa.dto.response.UpdateCommentReponseDto;
 import com.example.schedulerjpa.entity.Author;
 import com.example.schedulerjpa.entity.Comment;
 import com.example.schedulerjpa.entity.Schedule;
@@ -11,6 +13,7 @@ import com.example.schedulerjpa.repository.CommentRepository;
 import com.example.schedulerjpa.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -44,5 +47,17 @@ public class CommentServiceImpl implements CommentService {
                         comment.getUpdatedDate()
                 ))
                 .toList();
+    }
+
+    @Override
+    @Transactional
+    public UpdateCommentReponseDto updateComment(UpdateCommentRequestDto dto, Long commentId, Long authorId, Long scheduleId) {
+        Comment comment = commentRepository.findByIdOrElseThrow(commentId);
+
+        comment.isAuthorId(authorId);
+        comment.isScheduleId(scheduleId);
+        comment.update(dto.getContent());
+
+        return new UpdateCommentReponseDto(comment.getAuthor().getName(),comment.getContent(),comment.getUpdatedDate());
     }
 }
