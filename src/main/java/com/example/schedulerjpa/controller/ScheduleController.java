@@ -3,6 +3,7 @@ package com.example.schedulerjpa.controller;
 import com.example.schedulerjpa.dto.request.CreateScheduleRequestDto;
 import com.example.schedulerjpa.dto.request.UpdateScheduleRequestDto;
 import com.example.schedulerjpa.dto.response.CreateScheduleResponseDto;
+import com.example.schedulerjpa.dto.response.SchedulePageResponseDto;
 import com.example.schedulerjpa.dto.response.ScheduleResponseDto;
 import com.example.schedulerjpa.dto.response.UpdateScheduleResponseDto;
 import com.example.schedulerjpa.service.author.AuthorService;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +46,15 @@ public class ScheduleController {
         return new ResponseEntity<>(schedules, HttpStatus.OK);
     }
 
+    @GetMapping("/paged")
+    public ResponseEntity<Page<SchedulePageResponseDto>> findAllSchedulePaged(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Page<SchedulePageResponseDto> allSchedulePaged = scheduleService.findAllSchedulePaged(page, size);
+        return new ResponseEntity<>(allSchedulePaged, HttpStatus.OK);
+    }
+
     @GetMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> findByScheduleId(@PathVariable Long scheduleId) {
         ScheduleResponseDto dto = scheduleService.findByScheduleId(scheduleId);
@@ -71,4 +82,5 @@ public class ScheduleController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

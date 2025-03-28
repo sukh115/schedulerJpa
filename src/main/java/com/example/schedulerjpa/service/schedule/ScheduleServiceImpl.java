@@ -3,6 +3,7 @@ package com.example.schedulerjpa.service.schedule;
 import com.example.schedulerjpa.dto.request.CreateScheduleRequestDto;
 import com.example.schedulerjpa.dto.request.UpdateScheduleRequestDto;
 import com.example.schedulerjpa.dto.response.CreateScheduleResponseDto;
+import com.example.schedulerjpa.dto.response.SchedulePageResponseDto;
 import com.example.schedulerjpa.dto.response.ScheduleResponseDto;
 import com.example.schedulerjpa.dto.response.UpdateScheduleResponseDto;
 import com.example.schedulerjpa.entity.Author;
@@ -10,6 +11,10 @@ import com.example.schedulerjpa.entity.Schedule;
 import com.example.schedulerjpa.repository.AuthorRepository;
 import com.example.schedulerjpa.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,5 +75,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         scheduleRepository.delete(schedule);
 
+    }
+
+    @Override
+    public Page<SchedulePageResponseDto> findAllSchedulePaged(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedDate"));
+
+        return scheduleRepository.findPagedSchedules(pageable);
     }
 }
