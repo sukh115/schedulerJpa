@@ -37,7 +37,7 @@ public class LoginController {
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute(SessionConst.LOGIN_AUTHOR) == null) {
-            throw new CustomException(ExceptionCode.ALREADY_LOGGEFOUT);
+            throw new CustomException(ExceptionCode.ALREADY_LOGOUT);
         }
 
         session.invalidate();

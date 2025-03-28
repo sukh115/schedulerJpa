@@ -27,7 +27,7 @@ public enum ExceptionCode {
     PASSWORD_MISMATCH(401, "AUTH_002", "비밀번호가 일치하지 않습니다."),
     LOGIN_ID_MISMATCH(401, "AUTH_003", "아이디가 일치하지 않습니다."),
     AUTHOR_ID_MISMATCH(401, "AUTH_004", "존재하지 않는 로그인 ID입니다."),
-    ALREADY_LOGGEFOUT(401, "AUTH_005", "이미 로그아웃된 상태입니다."),
+    ALREADY_LOGOUT(401, "AUTH_005", "이미 로그아웃된 상태입니다."),
 
     // 댓글 관련
     COMMENT_NOT_FOUND(404, "COMMENT_001", "존재하지 않는 댓글입니다."),

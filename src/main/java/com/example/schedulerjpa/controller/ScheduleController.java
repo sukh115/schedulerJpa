@@ -6,7 +6,6 @@ import com.example.schedulerjpa.dto.response.CreateScheduleResponseDto;
 import com.example.schedulerjpa.dto.response.SchedulePageResponseDto;
 import com.example.schedulerjpa.dto.response.ScheduleResponseDto;
 import com.example.schedulerjpa.dto.response.UpdateScheduleResponseDto;
-import com.example.schedulerjpa.service.author.AuthorService;
 import com.example.schedulerjpa.service.schedule.ScheduleService;
 import com.example.schedulerjpa.session.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;

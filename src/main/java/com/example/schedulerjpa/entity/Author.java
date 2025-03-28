@@ -25,12 +25,6 @@ public class Author extends BaseEntity {
 
     }
 
-    public Author(CreateAuthorRequestDto dto) {
-        this.loginId = dto.getLoginId();
-        this.name = dto.getName();
-        this.password = dto.getPassword();
-    }
-
     public void update(String loginId, String name) {
         this.loginId = loginId;
         this.name = name;
