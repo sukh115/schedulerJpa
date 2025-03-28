@@ -14,4 +14,6 @@ public interface CommentService {
     List<CommentResponseDto> findBySchedule_ScheduleId(Long ScheduleId);
 
     UpdateCommentReponseDto updateComment(UpdateCommentRequestDto dto, Long commentId, Long authorId, Long scheduleId);
+
+    void deleteComment(Long commentId, Long authorId, Long scheduleId);
 }

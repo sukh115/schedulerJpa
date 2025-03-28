@@ -53,4 +53,16 @@ public class CommentController {
 
         return new ResponseEntity<>(updateCommentReponseDto, HttpStatus.OK);
     }
+
+    @DeleteMapping("/schedules/{scheduleId}/{commentId}")
+    public ResponseEntity<Void> deleteComment(
+            @PathVariable Long scheduleId,
+            @PathVariable Long commentId,
+            HttpServletRequest request
+    ) {
+        Long authorId = (Long) request.getSession().getAttribute(SessionConst.LOGIN_AUTHOR);
+        commentService.deleteComment(commentId,authorId,scheduleId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

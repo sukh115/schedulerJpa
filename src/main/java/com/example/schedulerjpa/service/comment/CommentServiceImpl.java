@@ -58,6 +58,15 @@ public class CommentServiceImpl implements CommentService {
         comment.isScheduleId(scheduleId);
         comment.update(dto.getContent());
 
-        return new UpdateCommentReponseDto(comment.getAuthor().getName(),comment.getContent(),comment.getUpdatedDate());
+        return new UpdateCommentReponseDto(comment.getAuthor().getName(), comment.getContent(), comment.getUpdatedDate());
+    }
+
+    @Override
+    public void deleteComment(Long commentId, Long authorId, Long scheduleId) {
+        Comment comment = commentRepository.findByIdOrElseThrow(commentId);
+
+        comment.isAuthorId(authorId);
+        comment.isScheduleId(scheduleId);
+        commentRepository.delete(comment);
     }
 }
