@@ -1,6 +1,7 @@
 package com.example.schedulerjpa.service.comment;
 
 import com.example.schedulerjpa.dto.request.CreateCommentRequestDto;
+import com.example.schedulerjpa.dto.response.CommentResponseDto;
 import com.example.schedulerjpa.dto.response.CreateCommentResponseDto;
 import com.example.schedulerjpa.entity.Author;
 import com.example.schedulerjpa.entity.Comment;
@@ -10,6 +11,8 @@ import com.example.schedulerjpa.repository.CommentRepository;
 import com.example.schedulerjpa.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,5 +31,18 @@ public class CommentServiceImpl implements CommentService {
         Comment save = commentRepository.save(comment);
 
         return new CreateCommentResponseDto(save.getCommentId(), save.getAuthor().getName(), save.getSchedule().getTitle(), save.getContent(), save.getCreatedDate(), save.getUpdatedDate());
+    }
+
+    @Override
+    public List<CommentResponseDto> findBySchedule_ScheduleId(Long ScheduleId) {
+        List<Comment> comments = commentRepository.findBySchedule_ScheduleId(ScheduleId);
+
+        return comments.stream()
+                .map(comment -> new CommentResponseDto(
+                        comment.getAuthor().getName(),
+                        comment.getContent(),
+                        comment.getUpdatedDate()
+                ))
+                .toList();
     }
 }

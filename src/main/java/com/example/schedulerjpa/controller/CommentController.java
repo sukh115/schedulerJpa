@@ -1,6 +1,7 @@
 package com.example.schedulerjpa.controller;
 
 import com.example.schedulerjpa.dto.request.CreateCommentRequestDto;
+import com.example.schedulerjpa.dto.response.CommentResponseDto;
 import com.example.schedulerjpa.dto.response.CreateCommentResponseDto;
 import com.example.schedulerjpa.service.comment.CommentService;
 import com.example.schedulerjpa.session.SessionConst;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,5 +29,13 @@ public class CommentController {
         Long authorId = (Long) request.getSession().getAttribute(SessionConst.LOGIN_AUTHOR);
         CreateCommentResponseDto comment = commentService.createComment(dto, authorId, scheduleId);
         return new ResponseEntity<>(comment, HttpStatus.OK);
+    }
+
+    @GetMapping("/schedules/{scheduleId}")
+    public ResponseEntity<List<CommentResponseDto>> findAllSchedule(
+            @PathVariable Long scheduleId
+    ) {
+        List<CommentResponseDto> response = commentService.findBySchedule_ScheduleId(scheduleId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

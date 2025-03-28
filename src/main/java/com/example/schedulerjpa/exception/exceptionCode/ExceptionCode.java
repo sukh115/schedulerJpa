@@ -28,8 +28,15 @@ public enum ExceptionCode {
     AUTHORID_MISMATCH(401, "AUTH_004", "존재하지 않는 로그인 ID입니다."),
     ALREADY_LOGGEFOUT(401, "AUTH_005", "이미 로그아웃된 상태입니다."),
 
+    // 댓글 관련
+    COMMENT_NOT_FOUND(404, "COMMENT_001", "존재하지 않는 댓글입니다."),
+    COMMENT_INVALID_INPUT(400, "COMMENT_002", "내용을 입력해주세요."),
+    COMMENT_UPDATE_FAILED(404, "COMMENT_003", "댓글 수정 실패"),
+    COMMENT_DELETE_FAILED(404, "COMMENT_004", "댓글 삭제 실패"),
+
     // 공통
     PAGE_OUT_OF_RANGE(400, "COMMON_001", "요청한 페이지 범위가 유효하지 않습니다.");
+
 
     private final int status;
     private final String code;
