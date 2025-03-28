@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 일정 관련 요청을 처리하는 컨트롤러
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/schedules")
@@ -26,6 +29,13 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
+    /**
+     * 일정을 등록
+     *
+     * @param dto     일정 생성 요청 DTO
+     * @param request 현재 HTTP 요청 (세션에서 로그인 작성자 ID 추출)
+     * @return 생성된 일정 정보와 201(CREATED) 응답
+     */
     @PostMapping
     public ResponseEntity<CreateScheduleResponseDto> createSchedule(
             @Valid @RequestBody CreateScheduleRequestDto dto,
@@ -39,12 +49,24 @@ public class ScheduleController {
         return new ResponseEntity<>(createScheduleResponseDto, HttpStatus.CREATED);
     }
 
+    /**
+     * 모든 일정을 조회
+     *
+     * @return 전체 일정 목록과 200(OK) 응답
+     */
     @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> findAllSchedules() {
         List<ScheduleResponseDto> schedules = scheduleService.findByAllSchedule();
         return new ResponseEntity<>(schedules, HttpStatus.OK);
     }
 
+    /**
+     * 페이징 처리된 일정 목록을 조회
+     *
+     * @param page 조회할 페이지 번호 (기본값: 0)
+     * @param size 한 페이지당 항목 수 (기본값: 10)
+     * @return 페이징된 일정 목록과 200(OK) 응답
+     */
     @GetMapping("/paged")
     public ResponseEntity<Page<SchedulePageResponseDto>> findAllSchedulePaged(
             @RequestParam(defaultValue = "0") int page,
@@ -54,12 +76,26 @@ public class ScheduleController {
         return new ResponseEntity<>(allSchedulePaged, HttpStatus.OK);
     }
 
+    /**
+     * 일정 ID로 단일 일정을 조회
+     *
+     * @param scheduleId 조회할 일정 ID
+     * @return 일정 정보와 200(OK) 응답
+     */
     @GetMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> findByScheduleId(@PathVariable Long scheduleId) {
         ScheduleResponseDto dto = scheduleService.findByScheduleId(scheduleId);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
+    /**
+     * 일정을 수정
+     *
+     * @param scheduleId 수정할 일정 ID
+     * @param dto        일정 수정 요청 DTO
+     * @param request    현재 HTTP 요청 (세션에서 로그인 작성자 ID 추출)
+     * @return 수정된 일정 정보와 200(OK) 응답
+     */
     @PatchMapping("/{scheduleId}")
     public ResponseEntity<UpdateScheduleResponseDto> updateSchedule(
             @PathVariable Long scheduleId,
@@ -71,6 +107,13 @@ public class ScheduleController {
         return new ResponseEntity<>(updateScheduleResponseDto, HttpStatus.OK);
     }
 
+    /**
+     * 일정을 삭제
+     *
+     * @param scheduleId 삭제할 일정 ID
+     * @param request    현재 HTTP 요청 (세션에서 로그인 작성자 ID 추출)
+     * @return 200(OK) 응답 (본문 없음)
+     */
     @DeleteMapping("/{scheduleId}")
     public ResponseEntity<Void> deleteSchedule(
             @PathVariable Long scheduleId,
