@@ -11,14 +11,14 @@
 
 ### 일정 관련
 
-| 기능            | Method | URL                                 | Request (JSON) | Response (JSON) | 상태 코드 |
-|-----------------|--------|--------------------------------------|----------------|------------------|-----------|
+| 기능            | Method | URL                                 | Request (JSON) | Response (JSON)                                                                                                                                  | 상태 코드 |
+|-----------------|--------|--------------------------------------|----------------|--------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
 | **일정 생성**     | POST   | `/schedules`                         | `{ "title": "회의", "content": "팀 미팅" }` | `{ "id": 1, "title": "회의", "content": "팀 미팅", "date": "2025-03-20", "create_date": "2025-03-19T12:00:00", "update_date": "2025-03-19T12:00:00" }` | 201 Created |
-| 일정 전체 조회   | GET    | `/schedules`                         | -              | `[ { "title": "회의", "content": "팀 미팅", "updatedDate": "2025-03-20", "name": "홍길동" } ]` | 200 OK |
-| 일정 페이징 조회 | GET    | `/schedules/paged?page=0&size=10`   | -              | `[ { "title": "회의", "content": "팀 미팅", "updatedDate": "2025-03-20", "name": "홍길동" } ]` | 200 OK / 빈 배열 |
-| 일정 단건 조회   | GET    | `/schedules/{scheduleId}`           | -              | `{ "title": "회의", "content": "팀 미팅", "date": "2025-03-20", "create_date": "2025-03-19T12:00:00", "update_date": "2025-03-19T12:00:00" }` | 200 OK |
-| 일정 수정       | PATCH  | `/schedules/{scheduleId}`           | `{ "title": "변경된 제목", "content": "변경된 내용" }` | `{ "title": "변경된 제목", "content": "변경된 내용", "updatedDate": "2025-03-21", "name": "홍길동" }` | 200 OK / 401 / 403 / 404 |
-| 일정 삭제       | DELETE | `/schedules/{scheduleId}`           | -              | -                | 200 OK / 401 / 404 |
+| 일정 전체 조회   | GET    | `/schedules`                         | -              | `[ { "title": "회의", "content": "팀 미팅", "updatedDate": "2025-03-20", "name": "홍길동" } ]`                                                           | 200 OK |
+| 일정 페이징 조회 | GET    | `/schedules/paged?page=0&size=10`   | -              | `[ { "title": "회의", "content": "팀 미팅", "updatedDate": "2025-03-20", "name": "홍길동","countComment": 2 } ]`                                         | 200 OK / 빈 배열 |
+| 일정 단건 조회   | GET    | `/schedules/{scheduleId}`           | -              | `{ "title": "회의", "content": "팀 미팅", "date": "2025-03-20", "create_date": "2025-03-19T12:00:00", "update_date": "2025-03-19T12:00:00" }`         | 200 OK |
+| 일정 수정       | PATCH  | `/schedules/{scheduleId}`           | `{ "title": "변경된 제목", "content": "변경된 내용" }` | `{ "title": "변경된 제목", "content": "변경된 내용", "updatedDate": "2025-03-21", "name": "홍길동" }`                                                         | 200 OK / 401 / 403 / 404 |
+| 일정 삭제       | DELETE | `/schedules/{scheduleId}`           | -              | -                                                                                                                                                | 200 OK / 401 / 404 |
 
 ---
 
