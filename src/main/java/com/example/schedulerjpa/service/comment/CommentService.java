@@ -52,4 +52,12 @@ public interface CommentService {
      * @param scheduleId 댓글이 속한 일정 ID
      */
     void deleteComment(Long commentId, Long authorId, Long scheduleId);
+
+    /**
+     * 해당 일정 아래 댓글 전체 삭제
+     *
+     * @param scheduleId    댓글이 속한 일정 ID
+     * @param authorId      작성자 ID
+     */
+    void deleteALlCommentsBySchedule(Long scheduleId, Long authorId);
 }

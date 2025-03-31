@@ -102,4 +102,22 @@ public class CommentController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    /**
+     * 해당 일정 아래 댓글 전체 삭제
+     *
+     * @param scheduleId    댓글이속한 일정 ID
+     * @param request       현재 HTTP 요청 (세션에서 로그인 작성자 추출)
+     * @return 200(OK) 응답 (본문 없음)
+     */
+    @DeleteMapping("/schedules/{scheduleId}")
+    public ResponseEntity<Void> deleteAllCommentBySchedule(
+            @PathVariable Long scheduleId,
+            HttpServletRequest request
+    ) {
+        Long authorId = (Long) request.getSession().getAttribute(SessionConst.LOGIN_AUTHOR);
+        commentService.deleteALlCommentsBySchedule(scheduleId, authorId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -55,7 +55,7 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     public List<CommentResponseDto> findBySchedule_ScheduleId(Long scheduleId) {
-        List<Comment> comments = commentRepository.findBySchedule_ScheduleId(ScheduleId);
+        List<Comment> comments = commentRepository.findBySchedule_ScheduleId(scheduleId);
 
         return comments.stream()
                 .map(comment -> new CommentResponseDto(
@@ -101,5 +101,25 @@ public class CommentServiceImpl implements CommentService {
         comment.isAuthorId(authorId);
         comment.isScheduleId(scheduleId);
         commentRepository.delete(comment);
+    }
+
+    /**
+     * 해당 일정 아래 댓글 전체 삭제
+     *
+     * @param scheduleId    댓글이 속한 일정 ID
+     * @param authorId      작성자 ID
+     */
+    @Override
+    @Transactional
+    public void deleteALlCommentsBySchedule(Long scheduleId, Long authorId) {
+        Schedule schedule = scheduleRepository.findByIdOrElseThrow(scheduleId);
+        schedule.isAuthorId(authorId);
+
+        List<Long> comments = commentRepository.findBySchedule_ScheduleId(scheduleId)
+                .stream()
+                .map(Comment::getCommentId)
+                .toList();
+
+        commentRepository.deleteAllByIdInBatch(comments);
     }
 }

@@ -44,13 +44,13 @@
 
 ### 댓글 관련
 
-| 기능        | Method | URL                                                      | Request (JSON) | Response (JSON) | 상태 코드 |
-|-------------|--------|-----------------------------------------------------------|----------------|------------------|-----------|
-| **댓글 작성** | POST   | `/comments/schedules/{scheduleId}`                       | `{ "content": "좋은 일정입니다!" }` | `{ "commentId": 1, "content": "좋은 일정입니다!", "author": "홍길동" }` | 200 OK |
-| 댓글 전체 조회 | GET    | `/comments/schedules/{scheduleId}`                       | -              | `[ { "commentId": 1, "content": "좋은 일정입니다!", "author": "홍길동" } ]` | 200 OK |
-| 댓글 수정     | PATCH  | `/comments/schedules/{scheduleId}/{commentId}`           | `{ "content": "수정된 댓글입니다." }` | `{ "commentId": 1, "content": "수정된 댓글입니다.", "author": "홍길동" }` | 200 OK / 403 / 404 |
-| 댓글 삭제     | DELETE | `/comments/schedules/{scheduleId}/{commentId}`           | -              | -                | 200 OK / 403 / 404 |
-
+| 기능        | Method | URL                                          | Request (JSON) | Response (JSON) | 상태 코드 |
+|-------------|--------|-----------------------------------------------|----------------|------------------|-----------|
+| **댓글 작성** | POST   | `/comments/schedules/{scheduleId}`           | `{ "content": "좋은 일정입니다!" }` | `{ "commentId": 1, "content": "좋은 일정입니다!", "author": "홍길동" }` | 200 OK |
+| 댓글 전체 조회 | GET    | `/comments/schedules/{scheduleId}`           | -              | `[ { "commentId": 1, "content": "좋은 일정입니다!", "author": "홍길동" } ]` | 200 OK |
+| 댓글 수정     | PATCH  | `/comments/schedules/{scheduleId}/{commentId}` | `{ "content": "수정된 댓글입니다." }` | `{ "commentId": 1, "content": "수정된 댓글입니다.", "author": "홍길동" }` | 200 OK / 403 / 404 |
+| 댓글 삭제     | DELETE | `/comments/schedules/{scheduleId}/{commentId}` | -              | -                | 200 OK / 403 / 404 |
+| 일정 댓글 전체 삭제     | DELETE | `/comments/schedules/{scheduleId}`           | -              | -                | 200 OK / 403 / 404 |
 
 
 ## 에러 코드 명세서
