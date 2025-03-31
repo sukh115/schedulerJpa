@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 /**
  * 일정(Schedule) 엔티티에 대한 JPA 리포지토리 인터페이스입니다.
  */
-public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
+public interface ScheduleRepository extends JpaRepository<Schedule, Long>, ScheduleQueryRepository {
 
     /**
      * 일정 ID로 일정을 조회

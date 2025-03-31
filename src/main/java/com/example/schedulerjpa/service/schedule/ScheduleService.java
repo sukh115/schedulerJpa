@@ -7,6 +7,7 @@ import com.example.schedulerjpa.dto.response.SchedulePageResponseDto;
 import com.example.schedulerjpa.dto.response.ScheduleResponseDto;
 import com.example.schedulerjpa.dto.response.UpdateScheduleResponseDto;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -65,5 +66,8 @@ public interface ScheduleService {
      * @return 일정 페이지 응답 DTO
      */
     Page<SchedulePageResponseDto> findAllSchedulePaged(int page, int size);
+
+
+    Page<SchedulePageResponseDto> searchSchedulesByKeyword(String keyword, Pageable pageable);
 
 }

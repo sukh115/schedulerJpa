@@ -129,4 +129,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         return scheduleRepository.findPagedSchedules(pageable);
     }
+
+    @Override
+    public Page<SchedulePageResponseDto> searchSchedulesByKeyword(String keyword, Pageable pageable) {
+        return scheduleRepository.searchSchedulesByKeyword(keyword, pageable);
+    }
 }
