@@ -128,6 +128,14 @@ public class ScheduleController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * 일정 키워드 검색 조회
+     *
+     * @param keyword   검색 조건
+     * @param page      조회할 페이지 번호 (기본값: 0)
+     * @param size      한 페이지당 항목 수 (기본값: 10)
+     * @return          검색 조건에 맞는 페이징된 일정 목록과 200(OK) 응답
+     */
     @GetMapping("/search")
     public ResponseEntity<Page<SchedulePageResponseDto>> searchSchedulesByKeyword(
             @RequestParam(required = false) String keyword,

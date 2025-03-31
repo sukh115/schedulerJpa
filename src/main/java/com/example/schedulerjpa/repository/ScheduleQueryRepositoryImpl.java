@@ -15,7 +15,9 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * QueryDSL + JPAQueryFactory 리포지토리
+ */
 @RequiredArgsConstructor
 public class ScheduleQueryRepositoryImpl implements ScheduleQueryRepository {
 

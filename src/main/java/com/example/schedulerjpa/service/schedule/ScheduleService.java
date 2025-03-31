@@ -68,6 +68,13 @@ public interface ScheduleService {
     Page<SchedulePageResponseDto> findAllSchedulePaged(int page, int size);
 
 
+    /**
+     * 키워드와 페이징 처리된 일정 목록을 조회
+     *
+     * @param keyword   검색 키워드
+     * @param pageable  페이징 정보
+     * @return          일정 페이지 응답 DTO
+     */
     Page<SchedulePageResponseDto> searchSchedulesByKeyword(String keyword, Pageable pageable);
 
 }
