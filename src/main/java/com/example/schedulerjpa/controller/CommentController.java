@@ -6,6 +6,7 @@ import com.example.schedulerjpa.dto.response.CommentResponseDto;
 import com.example.schedulerjpa.dto.response.CreateCommentResponseDto;
 import com.example.schedulerjpa.dto.response.UpdateCommentReponseDto;
 import com.example.schedulerjpa.service.comment.CommentService;
+import com.example.schedulerjpa.util.AuthUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -42,9 +43,8 @@ public class CommentController {
             @Valid @RequestBody CreateCommentRequestDto dto,
             HttpServletRequest request
     ) {
-        Long authorId = Long.valueOf(
-                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
-        );
+        Long authorId = AuthUtil.getLoginAuthorId();
+
         CreateCommentResponseDto comment = commentService.createComment(dto, authorId, scheduleId);
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
@@ -79,9 +79,8 @@ public class CommentController {
             @Valid @RequestBody UpdateCommentRequestDto dto,
             HttpServletRequest request
     ) {
-        Long authorId = Long.valueOf(
-                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
-        );
+        Long authorId = AuthUtil.getLoginAuthorId();
+
         UpdateCommentReponseDto updateCommentReponseDto = commentService.updateComment(dto, commentId, authorId, scheduleId);
 
         return new ResponseEntity<>(updateCommentReponseDto, HttpStatus.OK);
@@ -101,9 +100,8 @@ public class CommentController {
             @PathVariable Long commentId,
             HttpServletRequest request
     ) {
-        Long authorId = Long.valueOf(
-                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
-        );
+        Long authorId = AuthUtil.getLoginAuthorId();
+
         commentService.deleteComment(commentId, authorId, scheduleId);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -121,9 +119,8 @@ public class CommentController {
             @PathVariable Long scheduleId,
             HttpServletRequest request
     ) {
-        Long authorId = Long.valueOf(
-                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
-        );
+        Long authorId = AuthUtil.getLoginAuthorId();
+
         commentService.deleteALlCommentsBySchedule(scheduleId, authorId);
 
         return new ResponseEntity<>(HttpStatus.OK);

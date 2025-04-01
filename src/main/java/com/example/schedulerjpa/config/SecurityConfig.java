@@ -1,6 +1,8 @@
 package com.example.schedulerjpa.config;
 
 import com.example.schedulerjpa.filter.JwtAuthenticationFilter;
+import com.example.schedulerjpa.security.JwtAccessDeniedHandler;
+import com.example.schedulerjpa.security.JwtAuthenticationEntryPoint;
 import com.example.schedulerjpa.security.JwtTokenProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -49,6 +51,9 @@ public class SecurityConfig {
                                 "/comments/schedules/**"           // 댓글 전체 조회
                         ).permitAll()
                         .anyRequest().authenticated()
+                ).exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+                        .accessDeniedHandler(new JwtAccessDeniedHandler())
                 )
 
 

@@ -32,6 +32,8 @@ public enum ExceptionCode {
     TOKEN_EXPIRED(401, "AUTH_007", "유토큰이 만료되었습니다."),
     TOKEN_SIGNATURE_INVALID(401, "AUTH_008", "토큰 서명이 올바르지 않습니다."),
     TOKEN_MALFORMED(401, "AUTH_009", "잘못된 형식의 토큰입니다."),
+    TOKEN_FORBIDDEN(403, "AUTH_010", "접근 권한이 없습니다."),
+
 
     // 댓글 관련
     COMMENT_NOT_FOUND(404, "COMMENT_001", "존재하지 않는 댓글입니다."),

@@ -7,6 +7,7 @@ import com.example.schedulerjpa.dto.response.SchedulePageResponseDto;
 import com.example.schedulerjpa.dto.response.ScheduleResponseDto;
 import com.example.schedulerjpa.dto.response.UpdateScheduleResponseDto;
 import com.example.schedulerjpa.service.schedule.ScheduleService;
+import com.example.schedulerjpa.util.AuthUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,9 +44,8 @@ public class ScheduleController {
             @Valid @RequestBody CreateScheduleRequestDto dto,
             HttpServletRequest request
     ) {
-        Long authorId = Long.valueOf(
-                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
-        );
+        Long authorId = AuthUtil.getLoginAuthorId();
+
 
 
         CreateScheduleResponseDto createScheduleResponseDto = scheduleService.createSchedule(dto, authorId);
@@ -106,9 +106,8 @@ public class ScheduleController {
             @Valid @RequestBody UpdateScheduleRequestDto dto,
             HttpServletRequest request
     ) {
-        Long authorId = Long.valueOf(
-                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
-        );
+        Long authorId = AuthUtil.getLoginAuthorId();
+
         UpdateScheduleResponseDto updateScheduleResponseDto = scheduleService.updateSchedule(scheduleId, dto, authorId);
 
         return new ResponseEntity<>(updateScheduleResponseDto, HttpStatus.OK);
@@ -126,9 +125,8 @@ public class ScheduleController {
             @PathVariable Long scheduleId,
             HttpServletRequest request
     ) {
-        Long authorId = Long.valueOf(
-                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
-        );
+        Long authorId = AuthUtil.getLoginAuthorId();
+
         scheduleService.deleteSchedule(scheduleId, authorId);
 
         return new ResponseEntity<>(HttpStatus.OK);
