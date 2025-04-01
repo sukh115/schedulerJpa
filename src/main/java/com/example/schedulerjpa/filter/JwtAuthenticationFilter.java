@@ -2,7 +2,7 @@ package com.example.schedulerjpa.filter;
 
 import com.example.schedulerjpa.exception.ExceptionResponse;
 import com.example.schedulerjpa.exception.exceptionCode.ExceptionCode;
-import com.example.schedulerjpa.security.JwtTokenProvider;
+import com.example.schedulerjpa.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

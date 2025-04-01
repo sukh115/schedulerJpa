@@ -4,8 +4,8 @@ import com.example.schedulerjpa.dto.request.LoginRequestDto;
 import com.example.schedulerjpa.dto.response.LoginResponseDto;
 import com.example.schedulerjpa.entity.Author;
 import com.example.schedulerjpa.repository.AuthorRepository;
-import com.example.schedulerjpa.security.JwtTokenProvider;
 import com.example.schedulerjpa.security.PasswordEncoder;
+import com.example.schedulerjpa.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +38,6 @@ public class LoginServiceImpl implements LoginService {
         //JWT 발급
         String token = jwtTokenProvider.generateToken(author.getAuthorId().toString());
 
-        return new LoginResponseDto(author.getAuthorId(),author.getName() ,author.getLoginId(),token);
+        return new LoginResponseDto(author.getAuthorId(), author.getName(), author.getLoginId(), token);
     }
 }

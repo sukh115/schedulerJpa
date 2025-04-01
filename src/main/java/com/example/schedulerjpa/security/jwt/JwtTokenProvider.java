@@ -1,4 +1,4 @@
-package com.example.schedulerjpa.security;
+package com.example.schedulerjpa.security.jwt;
 
 import com.example.schedulerjpa.exception.CustomException;
 import com.example.schedulerjpa.exception.exceptionCode.ExceptionCode;

@@ -1,9 +1,9 @@
 package com.example.schedulerjpa.config;
 
 import com.example.schedulerjpa.filter.JwtAuthenticationFilter;
-import com.example.schedulerjpa.security.JwtAccessDeniedHandler;
-import com.example.schedulerjpa.security.JwtAuthenticationEntryPoint;
-import com.example.schedulerjpa.security.JwtTokenProvider;
+import com.example.schedulerjpa.security.jwt.JwtAccessDeniedHandler;
+import com.example.schedulerjpa.security.jwt.JwtAuthenticationEntryPoint;
+import com.example.schedulerjpa.security.jwt.JwtTokenProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
