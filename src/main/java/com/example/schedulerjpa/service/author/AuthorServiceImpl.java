@@ -54,7 +54,7 @@ public class AuthorServiceImpl implements AuthorService {
      * @return 조회된 작성자 정보 응답 DTO
      */
     @Override
-    public AuthorResponseDto findByauthorId(Long authorId) {
+    public AuthorResponseDto findByAuthorId(Long authorId) {
         Author author = authorRepository.findByIdOrElseThrow(authorId);
 
         return new AuthorResponseDto(author.getLoginId(), author.getName(), author.getUpdatedDate());

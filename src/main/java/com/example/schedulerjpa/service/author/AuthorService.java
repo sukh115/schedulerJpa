@@ -27,7 +27,7 @@ public interface AuthorService {
      * @param authorId 조회할 작성자 ID
      * @return 조회된 작성자 응답 DTO
      */
-    AuthorResponseDto findByauthorId(Long authorId);
+    AuthorResponseDto findByAuthorId(Long authorId);
 
     /**
      * 작성자 정보를 수정

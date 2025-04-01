@@ -45,7 +45,7 @@ public class AuthorController {
      */
     @GetMapping("/{authorId}")
     public ResponseEntity<AuthorResponseDto> findAllAuthor(@PathVariable Long authorId) {
-        AuthorResponseDto author = authorService.findByauthorId(authorId);
+        AuthorResponseDto author = authorService.findByAuthorId(authorId);
 
         return new ResponseEntity<>(author, HttpStatus.OK);
     }
