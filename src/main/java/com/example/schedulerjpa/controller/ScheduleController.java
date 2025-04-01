@@ -7,9 +7,7 @@ import com.example.schedulerjpa.dto.response.SchedulePageResponseDto;
 import com.example.schedulerjpa.dto.response.ScheduleResponseDto;
 import com.example.schedulerjpa.dto.response.UpdateScheduleResponseDto;
 import com.example.schedulerjpa.service.schedule.ScheduleService;
-import com.example.schedulerjpa.session.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,8 +43,10 @@ public class ScheduleController {
             @Valid @RequestBody CreateScheduleRequestDto dto,
             HttpServletRequest request
     ) {
-        HttpSession session = request.getSession(false);
-        Long authorId = (Long) session.getAttribute(SessionConst.LOGIN_AUTHOR);
+        Long authorId = Long.valueOf(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+        );
+
 
         CreateScheduleResponseDto createScheduleResponseDto = scheduleService.createSchedule(dto, authorId);
 
@@ -105,8 +106,11 @@ public class ScheduleController {
             @Valid @RequestBody UpdateScheduleRequestDto dto,
             HttpServletRequest request
     ) {
-        Long loginAuthorId = (Long) request.getSession().getAttribute(SessionConst.LOGIN_AUTHOR);
-        UpdateScheduleResponseDto updateScheduleResponseDto = scheduleService.updateSchedule(scheduleId, dto, loginAuthorId);
+        Long authorId = Long.valueOf(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+        );
+        UpdateScheduleResponseDto updateScheduleResponseDto = scheduleService.updateSchedule(scheduleId, dto, authorId);
+
         return new ResponseEntity<>(updateScheduleResponseDto, HttpStatus.OK);
     }
 
@@ -122,8 +126,10 @@ public class ScheduleController {
             @PathVariable Long scheduleId,
             HttpServletRequest request
     ) {
-        Long loginAuthorId = (Long) request.getSession().getAttribute(SessionConst.LOGIN_AUTHOR);
-        scheduleService.deleteSchedule(scheduleId, loginAuthorId);
+        Long authorId = Long.valueOf(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+        );
+        scheduleService.deleteSchedule(scheduleId, authorId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -131,10 +137,10 @@ public class ScheduleController {
     /**
      * 일정 키워드 검색 조회
      *
-     * @param keyword   검색 조건
-     * @param page      조회할 페이지 번호 (기본값: 0)
-     * @param size      한 페이지당 항목 수 (기본값: 10)
-     * @return          검색 조건에 맞는 페이징된 일정 목록과 200(OK) 응답
+     * @param keyword 검색 조건
+     * @param page    조회할 페이지 번호 (기본값: 0)
+     * @param size    한 페이지당 항목 수 (기본값: 10)
+     * @return 검색 조건에 맞는 페이징된 일정 목록과 200(OK) 응답
      */
     @GetMapping("/search")
     public ResponseEntity<Page<SchedulePageResponseDto>> searchSchedulesByKeyword(

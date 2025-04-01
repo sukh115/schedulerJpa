@@ -28,6 +28,10 @@ public enum ExceptionCode {
     LOGIN_ID_MISMATCH(401, "AUTH_003", "아이디가 일치하지 않습니다."),
     AUTHOR_ID_MISMATCH(401, "AUTH_004", "존재하지 않는 로그인 ID입니다."),
     ALREADY_LOGOUT(401, "AUTH_005", "이미 로그아웃된 상태입니다."),
+    TOKEN_INVALID(401, "AUTH_006", "유효하지 않은 토큰입니다."),
+    TOKEN_EXPIRED(401, "AUTH_007", "유토큰이 만료되었습니다."),
+    TOKEN_SIGNATURE_INVALID(401, "AUTH_008", "토큰 서명이 올바르지 않습니다."),
+    TOKEN_MALFORMED(401, "AUTH_009", "잘못된 형식의 토큰입니다."),
 
     // 댓글 관련
     COMMENT_NOT_FOUND(404, "COMMENT_001", "존재하지 않는 댓글입니다."),

@@ -6,12 +6,12 @@ import com.example.schedulerjpa.dto.response.CommentResponseDto;
 import com.example.schedulerjpa.dto.response.CreateCommentResponseDto;
 import com.example.schedulerjpa.dto.response.UpdateCommentReponseDto;
 import com.example.schedulerjpa.service.comment.CommentService;
-import com.example.schedulerjpa.session.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,7 +42,9 @@ public class CommentController {
             @Valid @RequestBody CreateCommentRequestDto dto,
             HttpServletRequest request
     ) {
-        Long authorId = (Long) request.getSession().getAttribute(SessionConst.LOGIN_AUTHOR);
+        Long authorId = Long.valueOf(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+        );
         CreateCommentResponseDto comment = commentService.createComment(dto, authorId, scheduleId);
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
@@ -77,7 +79,9 @@ public class CommentController {
             @Valid @RequestBody UpdateCommentRequestDto dto,
             HttpServletRequest request
     ) {
-        Long authorId = (Long) request.getSession().getAttribute(SessionConst.LOGIN_AUTHOR);
+        Long authorId = Long.valueOf(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+        );
         UpdateCommentReponseDto updateCommentReponseDto = commentService.updateComment(dto, commentId, authorId, scheduleId);
 
         return new ResponseEntity<>(updateCommentReponseDto, HttpStatus.OK);
@@ -97,7 +101,9 @@ public class CommentController {
             @PathVariable Long commentId,
             HttpServletRequest request
     ) {
-        Long authorId = (Long) request.getSession().getAttribute(SessionConst.LOGIN_AUTHOR);
+        Long authorId = Long.valueOf(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+        );
         commentService.deleteComment(commentId, authorId, scheduleId);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -106,8 +112,8 @@ public class CommentController {
     /**
      * 해당 일정 아래 댓글 전체 삭제
      *
-     * @param scheduleId    댓글이속한 일정 ID
-     * @param request       현재 HTTP 요청 (세션에서 로그인 작성자 추출)
+     * @param scheduleId 댓글이속한 일정 ID
+     * @param request    현재 HTTP 요청 (세션에서 로그인 작성자 추출)
      * @return 200(OK) 응답 (본문 없음)
      */
     @DeleteMapping("/schedules/{scheduleId}")
@@ -115,7 +121,9 @@ public class CommentController {
             @PathVariable Long scheduleId,
             HttpServletRequest request
     ) {
-        Long authorId = (Long) request.getSession().getAttribute(SessionConst.LOGIN_AUTHOR);
+        Long authorId = Long.valueOf(
+                (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+        );
         commentService.deleteALlCommentsBySchedule(scheduleId, authorId);
 
         return new ResponseEntity<>(HttpStatus.OK);

@@ -9,5 +9,6 @@ public class LoginResponseDto {
     private Long authorId;
     private String name;
     private String loginId;
+    private String token;
 
 }

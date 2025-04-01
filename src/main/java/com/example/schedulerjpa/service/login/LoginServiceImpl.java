@@ -4,10 +4,8 @@ import com.example.schedulerjpa.dto.request.LoginRequestDto;
 import com.example.schedulerjpa.dto.response.LoginResponseDto;
 import com.example.schedulerjpa.entity.Author;
 import com.example.schedulerjpa.repository.AuthorRepository;
+import com.example.schedulerjpa.security.JwtTokenProvider;
 import com.example.schedulerjpa.security.PasswordEncoder;
-import com.example.schedulerjpa.session.SessionConst;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,25 +20,24 @@ public class LoginServiceImpl implements LoginService {
 
     private final AuthorRepository authorRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     /**
      * 로그인 요청을 처리
      *
-     * @param dto     로그인 요청 DTO (로그인 ID, 비밀번호 포함)
-     * @param request 현재 HTTP 요청 (세션을 생성하기 위해 사용)
+     * @param dto 로그인 요청 DTO (로그인 ID, 비밀번호 포함)
      * @return 로그인 성공 시 작성자 정보 응답 DTO
      */
     @Override
-    public LoginResponseDto login(LoginRequestDto dto, HttpServletRequest request) {
+    public LoginResponseDto login(LoginRequestDto dto) {
         Author author = authorRepository.findByLoginIdOrElseThrow(dto.getLoginId());
 
         author.isLoginId(dto.getLoginId());
         author.verifyPassword(dto.getPassword(), passwordEncoder);
 
+        //JWT 발급
+        String token = jwtTokenProvider.generateToken(author.getAuthorId().toString());
 
-        HttpSession session = request.getSession(true);
-        session.setAttribute(SessionConst.LOGIN_AUTHOR, author.getAuthorId());
-
-        return new LoginResponseDto(author.getAuthorId(), author.getLoginId(), author.getPassword());
+        return new LoginResponseDto(author.getAuthorId(),author.getName() ,author.getLoginId(),token);
     }
 }
