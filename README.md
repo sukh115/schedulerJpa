@@ -105,7 +105,7 @@
     ├── Author.java
     ├── Login.java
     ├── BaseEntity.java
-    └── Commentr.java
+    └── Comment.java
     
     service/
     ├── author/
@@ -139,19 +139,26 @@
     ├── ValidationExceptionResponse.java
     └── exceptionCode/
         └─── ExceptionCode.java
-    
-    session/
-    └── SessionConst.java
 
     config/
-    └── FilterConfig.java
+    ├── FilterConfig.java
+    ├── RedisConfig.java
+    └── SecurityConfig.java
 
     fiter/
-    └── AuthFilter.java
+    └── JwtAuthenticationFilter.java
 
     securitiy/
-    └── PasswordEncorder.java
-    └── SimplePasswordEncorder.java
+    ├── PasswordEncorder.java
+    ├── SimplePasswordEncorder.java
+    └── jwt
+        └── JwtAccesDeniedHandler.java
+        └── JwtAuthenticationEntryPoint.java
+        └── JwtTokenProvider.java
+
+    util/
+    └── AuthUtil.java
+
 ---
 
 ## 🔐 인증 흐름 (JWT + Spring Security)
