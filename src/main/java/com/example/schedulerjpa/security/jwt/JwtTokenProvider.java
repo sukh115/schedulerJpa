@@ -1,9 +1,11 @@
 package com.example.schedulerjpa.security.jwt;
 
+import com.example.schedulerjpa.dto.response.TokenResponseDto;
 import com.example.schedulerjpa.exception.CustomException;
 import com.example.schedulerjpa.exception.exceptionCode.ExceptionCode;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -13,24 +15,54 @@ import java.util.Date;
  * JWT 토큰 발급 및 검증 유틸리티
  */
 @Component
+@NoArgsConstructor
 public class JwtTokenProvider {
 
-    private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private final long expireTimeMs = 1000 * 60 * 30;
+    private Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private long accessTokenExpireMs = 1000 * 60 * 30;
+    private long refreshTokenExpireMs = 1000L * 60 * 60 * 24 * 7;
+
 
     /**
-     * JWT 생성
+     * JWT AccessToken 생성
      *
      * @param authorId 작성자 ID
      * @return 생성된 JWT 토큰 문자열
      */
-    public String generateToken(String authorId) {
+    public String generateAccessToken(String authorId) {
         return Jwts.builder()
                 .setSubject(authorId)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expireTimeMs))
+                .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpireMs))
                 .signWith(secretKey)
                 .compact();
+    }
+
+    /**
+     * JWT RefreshToken 생성
+     *
+     * @param authorId 작성자 ID
+     * @return 생성된 JWT 토큰 문자열
+     */
+    public String generateRefreshToken(String authorId) {
+        return Jwts.builder()
+                .setSubject(authorId)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpireMs))
+                .signWith(secretKey)
+                .compact();
+    }
+
+    /**
+     * AccessToken, RefreshToken 동시 생성
+     *
+     * @param authorId 작성자 ID
+     * @return TokenResponseDto
+     */
+    public TokenResponseDto generateTokenPair(String authorId) {
+        String accessToken = generateAccessToken(authorId);
+        String refreshToken = generateRefreshToken(authorId);
+        return new TokenResponseDto(accessToken, refreshToken);
     }
 
     /**
@@ -44,6 +76,23 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    /**
+     * 토큰에 있는 만료시간 가져오기
+     *
+     * @param token JWT 토큰
+     * @return 만료시간
+     */
+    public long getRemainingExpiration(String token) {
+        Date expiration = Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration();
+
+        return expiration.getTime() - System.currentTimeMillis();
     }
 
     /**

@@ -2,11 +2,10 @@ package com.example.schedulerjpa.controller;
 
 import com.example.schedulerjpa.dto.request.LoginRequestDto;
 import com.example.schedulerjpa.dto.response.LoginResponseDto;
-import com.example.schedulerjpa.exception.CustomException;
-import com.example.schedulerjpa.exception.exceptionCode.ExceptionCode;
+import com.example.schedulerjpa.dto.response.TokenResponseDto;
 import com.example.schedulerjpa.service.login.LoginService;
+import com.example.schedulerjpa.util.AuthUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +30,7 @@ public class LoginController {
     /**
      * 로그아웃 요청을 처리
      *
-     * @param dto     로그인 요청 DTO (로그인 ID, 비밀번호 포함)
+     * @param dto 로그인 요청 DTO (로그인 ID, 비밀번호 포함)
      * @return 로그인 성공 시 작성자 정보와 200(OK) 응답
      */
     @PostMapping
@@ -40,6 +39,13 @@ public class LoginController {
     ) {
         LoginResponseDto login = loginService.login(dto);
         return ResponseEntity.ok(login);
+    }
+
+    @PostMapping("/reissue")
+    public ResponseEntity<TokenResponseDto> reissue(HttpServletRequest request) {
+        String token = AuthUtil.resolveToken(request);
+        TokenResponseDto reissued = loginService.reissue(token);
+        return ResponseEntity.ok(reissued);
     }
 
     /**

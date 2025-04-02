@@ -2,6 +2,7 @@ package com.example.schedulerjpa.service.login;
 
 import com.example.schedulerjpa.dto.request.LoginRequestDto;
 import com.example.schedulerjpa.dto.response.LoginResponseDto;
+import com.example.schedulerjpa.dto.response.TokenResponseDto;
 
 /**
  * 로그인 처리를 위한 서비스 인터페이스입니다.
@@ -14,4 +15,8 @@ public interface LoginService {
      * @return 로그인 성공 시 작성자 정보 응답 DTO
      */
     LoginResponseDto login(LoginRequestDto dto);
+
+    TokenResponseDto reissue(String refreshToken);
+
+    void logout(String token);
 }
