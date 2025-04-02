@@ -8,6 +8,7 @@ import com.example.schedulerjpa.util.AuthUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,14 +39,14 @@ public class LoginController {
             @Valid @RequestBody LoginRequestDto dto
     ) {
         LoginResponseDto login = loginService.login(dto);
-        return ResponseEntity.ok(login);
+        return new ResponseEntity<>(login, HttpStatus.OK);
     }
 
     @PostMapping("/reissue")
     public ResponseEntity<TokenResponseDto> reissue(HttpServletRequest request) {
         String token = AuthUtil.resolveToken(request);
         TokenResponseDto reissued = loginService.reissue(token);
-        return ResponseEntity.ok(reissued);
+        return new ResponseEntity<>(reissued, HttpStatus.OK);
     }
 
     @PostMapping("/logout")
