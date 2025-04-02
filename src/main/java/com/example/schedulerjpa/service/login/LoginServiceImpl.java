@@ -73,13 +73,19 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void logout(String token) {
-        long expiration = jwtTokenProvider.getRemainingExpiration(token);
-
-        if (expiration > 0) {
-            redisTemplate.opsForValue().set(token, "logout", expiration, TimeUnit.MILLISECONDS);
+    public void logout(String refreshToken) {
+        // 토큰 유효성 검사
+        if (!jwtTokenProvider.validateToken(refreshToken)) {
+            throw new CustomException(ExceptionCode.TOKEN_INVALID);
         }
+
+        // 작성자 ID 추출
+        String authorId = jwtTokenProvider.getAuthorId(refreshToken);
+
+        // Redis에서 Refresh Token 삭제
+        redisTemplate.delete("RT:" + authorId);
     }
+
     }
 
 

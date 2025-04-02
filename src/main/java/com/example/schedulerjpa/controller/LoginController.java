@@ -48,12 +48,11 @@ public class LoginController {
         return ResponseEntity.ok(reissued);
     }
 
-    /**
-     * @return 로그아웃 메시지와 200(OK) 응답
-     */
     @PostMapping("/logout")
-    public ResponseEntity<String> logout() {
-        return ResponseEntity.ok("클라이언트 측에서 토큰을 삭제해주세요.");
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        String token = AuthUtil.resolveToken(request);
+        loginService.logout(token);
+        return ResponseEntity.ok("로그아웃 되었습니다.");
     }
 
 }
