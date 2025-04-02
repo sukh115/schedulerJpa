@@ -17,6 +17,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * JWY 인증 필터
+ */
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -26,24 +29,36 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
 
+    /**
+     * JWT 인증 처리
+     *
+     * @param request     HTTP 요청 객체
+     * @param response    HTTP 응답 객체
+     * @param filterChain 필터 체인
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+        // Authorization 헤더에서 토큰 추출
         String token = resolveToken(request);
 
+        // 토큰이 없으면 다음 필터로 진행
         if (token == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
+            // 토큰 유효성 검사 및 사용자 ID 추출
             if (jwtTokenProvider.validateToken(token)) {
                 String authorId = jwtTokenProvider.getAuthorId(token);
+                // 사용자 인증 객체 생성 후 SecurityContext에 설정
                 UsernamePasswordAuthenticationToken auth =
                         new UsernamePasswordAuthenticationToken(authorId, null, List.of());
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } else {
+                // 유효하지 않은 토큰
                 handleException(response, ExceptionCode.TOKEN_INVALID);
                 return;
             }
@@ -61,9 +76,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
+        // 다음 필터로 진행
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * 인증 실패 시 JSON 에러 응답 반환
+     *
+     * @param response 응답 객체
+     * @param error    에러 코드 (ExceptionCode)
+     * @throws IOException 응답 출력 오류
+     */
     private void handleException(HttpServletResponse response, ExceptionCode error) throws IOException {
         response.setStatus(error.getStatus());
         response.setContentType("application/json");
@@ -79,6 +102,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         new ObjectMapper().writeValue(response.getWriter(), body);
     }
 
+    /**
+     * Authorization 헤더에서 JWT 토큰 추출
+     *
+     * @param request 요청 객체
+     * @return Bearer 토큰 문자열 또는 null
+     */
     private String resolveToken(HttpServletRequest request) {
         String bearer = request.getHeader("Authorization");
         if (bearer != null && bearer.startsWith("Bearer ")) {

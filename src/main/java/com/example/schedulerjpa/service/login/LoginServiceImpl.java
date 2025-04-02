@@ -55,6 +55,13 @@ public class LoginServiceImpl implements LoginService {
         return new LoginResponseDto(author.getAuthorId(), author.getName(), author.getLoginId(), tokenPair.getAccessToken(), tokenPair.getRefreshToken());
     }
 
+    /**
+     * 토큰 재발행 요청을 처리
+     *
+     * @param refreshToken 요청 헤더에서 추출한 Refresh Token
+     * @return 새로 발급된 Access Token + 기존 Refresh Token
+     * @throws CustomException 토큰이 유효하지 않거나 Redis에 저장된 값과 다를 경우 TOKEN_INVALID
+     */
     @Override
     public TokenResponseDto reissue(String refreshToken) {
         if (!jwtTokenProvider.validateToken(refreshToken)) {
@@ -72,6 +79,12 @@ public class LoginServiceImpl implements LoginService {
         return new TokenResponseDto(newAccessToken, refreshToken);
     }
 
+    /**
+     * 로그아웃 요청을 처리
+     *
+     * @param refreshToken 요청 헤더에서 추출한 Refresh Token
+     * @throws CustomException 토큰이 유효하지 않거나 Redis에 저장된 값과 다를 경우 TOKEN_INVALID
+     */
     @Override
     public void logout(String refreshToken) {
         // 토큰 유효성 검사

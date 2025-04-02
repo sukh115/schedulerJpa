@@ -42,6 +42,12 @@ public class LoginController {
         return new ResponseEntity<>(login, HttpStatus.OK);
     }
 
+    /**
+     * 액세스 토큰 재발급
+     *
+     * @param request
+     * @return 토큰 재발행 성공 시 토큰 정보와 200(OK) 응답
+     */
     @PostMapping("/reissue")
     public ResponseEntity<TokenResponseDto> reissue(HttpServletRequest request) {
         String token = AuthUtil.resolveToken(request);
@@ -49,6 +55,12 @@ public class LoginController {
         return new ResponseEntity<>(reissued, HttpStatus.OK);
     }
 
+    /**
+     * 로그아웃
+     *
+     * @param request
+     * @return  로그아웃 성공 시 200(OK) 응답
+     */
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpServletRequest request) {
         String token = AuthUtil.resolveToken(request);

@@ -16,7 +16,18 @@ public interface LoginService {
      */
     LoginResponseDto login(LoginRequestDto dto);
 
+    /**
+     * 토큰 재발행 요청을 처리
+     *
+     * @param refreshToken 요청 헤더에서 추출한 Refresh Token
+     * @return 새로 발급된 Access Token + 기존 Refresh Token
+     */
     TokenResponseDto reissue(String refreshToken);
 
-    void logout(String token);
+    /**
+     * 로그아웃 요청을 처리
+     *
+     * @param refreshToken 요청 헤더에서 Token
+     */
+    void logout(String refreshToken);
 }

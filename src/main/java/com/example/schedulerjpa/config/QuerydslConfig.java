@@ -6,6 +6,9 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * QuertDsl 설정
+ */
 @Configuration
 public class QuerydslConfig {
     @PersistenceContext
