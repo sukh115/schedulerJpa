@@ -91,6 +91,9 @@
 - **Gradle**
 - **JPA**
 - **Postman**
+- **SpringSecurity**
+- **JWT**
+- **Docker**
 ---
 
 ## 🗂️ 계층 구조 (MVC + Service + Repository)
